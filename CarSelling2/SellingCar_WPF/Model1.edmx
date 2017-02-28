@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CarsSellingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TbCarsFoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarId" Type="int" />
+          <Property Name="Foto" Type="image" />
+        </EntityType>
+        <EntityType Name="TbCarsInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Modell" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Insurance" Type="date" />
+          <Property Name="Sold" Type="bit" />
+        </EntityType>
+        <EntityType Name="TbOwnersInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarId" Type="int" />
+          <Property Name="Vorname" Type="nvarchar" MaxLength="50" />
+          <Property Name="nachname" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelephoneNumber" Type="varbinary" MaxLength="50" />
+          <Property Name="EmailAdress" Type="nvarchar" MaxLength="320" />
+        </EntityType>
+        <EntityType Name="TbSellingInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellingDate" Type="date" />
+          <Property Name="SellingPrice" Type="float" />
+          <Property Name="Profit" Type="float" />
+          <Property Name="CarId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Table_1_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbOwnersInfo" Type="Self.TbOwnersInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbOwnersInfo">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_2_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbSellingInfo" Type="Self.TbSellingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbSellingInfo">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_3_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbCarsFoto" Type="Self.TbCarsFoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbCarsFoto">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarsSellingModelStoreContainer">
+          <EntitySet Name="TbCarsFoto" EntityType="Self.TbCarsFoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbCarsInfo" EntityType="Self.TbCarsInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbOwnersInfo" EntityType="Self.TbOwnersInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbSellingInfo" EntityType="Self.TbSellingInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_1_TbCarsInfo" Association="Self.FK_Table_1_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfo" />
+            <End Role="TbOwnersInfo" EntitySet="TbOwnersInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_2_TbCarsInfo" Association="Self.FK_Table_2_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfo" />
+            <End Role="TbSellingInfo" EntitySet="TbSellingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_3_TbCarsInfo" Association="Self.FK_Table_3_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfo" />
+            <End Role="TbCarsFoto" EntitySet="TbCarsFoto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarsSellingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TbCarsFoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarId" Type="Int32" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="TbCarsInfo" Relationship="Self.FK_Table_3_TbCarsInfo" FromRole="TbCarsFoto" ToRole="TbCarsInfo" />
+        </EntityType>
+        <EntityType Name="TbCarsInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Modell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Insurance" Type="DateTime" Precision="0" />
+          <Property Name="Sold" Type="Boolean" />
+          <NavigationProperty Name="TbCarsFotoes" Relationship="Self.FK_Table_3_TbCarsInfo" FromRole="TbCarsInfo" ToRole="TbCarsFoto" />
+          <NavigationProperty Name="TbOwnersInfoes" Relationship="Self.FK_Table_1_TbCarsInfo" FromRole="TbCarsInfo" ToRole="TbOwnersInfo" />
+          <NavigationProperty Name="TbSellingInfoes" Relationship="Self.FK_Table_2_TbCarsInfo" FromRole="TbCarsInfo" ToRole="TbSellingInfo" />
+        </EntityType>
+        <EntityType Name="TbOwnersInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarId" Type="Int32" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelephoneNumber" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="EmailAdress" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TbCarsInfo" Relationship="Self.FK_Table_1_TbCarsInfo" FromRole="TbOwnersInfo" ToRole="TbCarsInfo" />
+        </EntityType>
+        <EntityType Name="TbSellingInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellingDate" Type="DateTime" Precision="0" />
+          <Property Name="SellingPrice" Type="Double" />
+          <Property Name="Profit" Type="Double" />
+          <Property Name="CarId" Type="Int32" />
+          <NavigationProperty Name="TbCarsInfo" Relationship="Self.FK_Table_2_TbCarsInfo" FromRole="TbSellingInfo" ToRole="TbCarsInfo" />
+        </EntityType>
+        <Association Name="FK_Table_3_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbCarsFoto" Type="Self.TbCarsFoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbCarsFoto">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbOwnersInfo" Type="Self.TbOwnersInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbOwnersInfo">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_2_TbCarsInfo">
+          <End Role="TbCarsInfo" Type="Self.TbCarsInfo" Multiplicity="0..1" />
+          <End Role="TbSellingInfo" Type="Self.TbSellingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbCarsInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TbSellingInfo">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarsSellingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TbCarsFotoes" EntityType="Self.TbCarsFoto" />
+          <EntitySet Name="TbCarsInfoes" EntityType="Self.TbCarsInfo" />
+          <EntitySet Name="TbOwnersInfoes" EntityType="Self.TbOwnersInfo" />
+          <EntitySet Name="TbSellingInfoes" EntityType="Self.TbSellingInfo" />
+          <AssociationSet Name="FK_Table_3_TbCarsInfo" Association="Self.FK_Table_3_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfoes" />
+            <End Role="TbCarsFoto" EntitySet="TbCarsFotoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_TbCarsInfo" Association="Self.FK_Table_1_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfoes" />
+            <End Role="TbOwnersInfo" EntitySet="TbOwnersInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_2_TbCarsInfo" Association="Self.FK_Table_2_TbCarsInfo">
+            <End Role="TbCarsInfo" EntitySet="TbCarsInfoes" />
+            <End Role="TbSellingInfo" EntitySet="TbSellingInfoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarsSellingModelStoreContainer" CdmEntityContainer="CarsSellingEntities">
+          <EntitySetMapping Name="TbCarsFotoes">
+            <EntityTypeMapping TypeName="CarsSellingModel.TbCarsFoto">
+              <MappingFragment StoreEntitySet="TbCarsFoto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbCarsInfoes">
+            <EntityTypeMapping TypeName="CarsSellingModel.TbCarsInfo">
+              <MappingFragment StoreEntitySet="TbCarsInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Modell" ColumnName="Modell" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Insurance" ColumnName="Insurance" />
+                <ScalarProperty Name="Sold" ColumnName="Sold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbOwnersInfoes">
+            <EntityTypeMapping TypeName="CarsSellingModel.TbOwnersInfo">
+              <MappingFragment StoreEntitySet="TbOwnersInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="nachname" ColumnName="nachname" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="EmailAdress" ColumnName="EmailAdress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbSellingInfoes">
+            <EntityTypeMapping TypeName="CarsSellingModel.TbSellingInfo">
+              <MappingFragment StoreEntitySet="TbSellingInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SellingDate" ColumnName="SellingDate" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
